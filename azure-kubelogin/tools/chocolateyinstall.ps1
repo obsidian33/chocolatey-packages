@@ -15,14 +15,14 @@ $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 #$fileLocation = '\\SHARE_LOCATION\to\INSTALLER_FILE'
 # Community Repo: Use official urls for non-redist binaries or redist where total package size is over 200MB
 # Internal/Organization: Download from internal location (internet sources are unreliable)
-$url        = 'https://github.com/Azure/kubelogin/releases/download/v0.0.20/kubelogin-win-amd64.zip' # download url, HTTPS preferred
+#$url        = 'https://github.com/Azure/kubelogin/releases/download/v0.0.20/kubelogin-win-amd64.zip' # download url, HTTPS preferred
 $url64      = 'https://github.com/Azure/kubelogin/releases/download/v0.0.20/kubelogin-win-amd64.zip' # 64bit URL here (HTTPS preferred) or remove - if installer contains both (very rare), use $url
 
 $packageArgs = @{
   packageName   = $env:ChocolateyPackageName
   unzipLocation = $toolsDir
   fileType      = 'exe' #only one of these: exe, msi, msu
-  url           = $url
+  #url           = $url
   url64bit      = $url64
   #file         = $fileLocation
 
@@ -32,8 +32,8 @@ $packageArgs = @{
   # To determine checksums, you can get that from the original site if provided.
   # You can also use checksum.exe (choco install checksum) and use it
   # e.g. checksum -t sha256 -f path\to\file
-  checksum      = 'D0197FF402B29BD7AE36EFA8EEFD05B8'
-  checksumType  = 'md5' #default is md5, can also be sha1, sha256 or sha512
+  #checksum      = 'D0197FF402B29BD7AE36EFA8EEFD05B8'
+  #checksumType  = 'md5' #default is md5, can also be sha1, sha256 or sha512
   checksum64    = 'D0197FF402B29BD7AE36EFA8EEFD05B8'
   checksumType64= 'md5' #default is checksumType
 
