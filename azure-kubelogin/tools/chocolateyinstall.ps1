@@ -14,5 +14,3 @@ $packageArgs = @{
 }
 
 Install-ChocolateyZipPackage @packageArgs
-
-Remove-Item "$toolsDir\kubelogin-win-amd64.zip"
