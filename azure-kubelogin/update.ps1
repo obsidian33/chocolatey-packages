@@ -29,7 +29,7 @@ function Get-Sha($version) {
     Write-Verbose $response
     $sha, $file = $response -split '  '
     Write-Verbose $sha
-    retrun $sha
+    return $sha
 }
 
 function global:au_GetLatest {
