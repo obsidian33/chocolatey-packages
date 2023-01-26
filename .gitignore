@@ -10,3 +10,6 @@ $RECYCLE.BIN/
 
 # Mac
 .DS_Store
+
+# Package Build
+*.nupkg
