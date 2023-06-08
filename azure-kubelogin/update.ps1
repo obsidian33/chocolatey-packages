@@ -48,3 +48,7 @@ function global:au_GetLatest {
 }
 
 Update-Package -NoCheckUrl -NoCheckChocoVersion -NoReadme -ChecksumFor none -Force:$Force
+
+Write-Host "Build the package: choco pack"
+Write-Host "Test the package"
+Write-Host "Push the package: choco push package-name.1.1.0.nupkg --source https://push.chocolately.org/"
