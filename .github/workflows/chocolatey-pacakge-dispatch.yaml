@@ -1,9 +1,9 @@
 name: Update, Build, and Push Chocolatey Packages on Repository Dispatch
 
-on: workflow_dispatch
-    # inputs:
-    #   package: 'Azure/kubelogin'
-    #   version: '0.1.4'
+on:
+  workflow_dispatch:
+    inputs:
+      package: Azure/kubelogin
   # repository_dispatch:
   #   types: [new-release]
 
@@ -39,7 +39,8 @@ jobs:
       id: filename
       run: |
         "${{ steps.build.outputs.nupkg }}" -match "([a-z0-9\-\.]+.nupkg)'$"
-        "nupkg=$Matches[1]" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+        $filename = $Matches[1]
+        "nupkg=$filename" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
     - name: Push Chocolatey Package
       env:
