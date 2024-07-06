@@ -1,0 +1,39 @@
+name: Update, Build, and Push Chocolatey Packages on Repository Dispatch
+
+on:
+  repository_dispatch:
+    types: [new-release]
+
+jobs:
+  update-build-push:
+    if: ${{ github.event.client_payload == 'Azure/kubelogin' }}
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install PowerShell Modules
+      shell: pwsh
+      run: |
+        Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+        Install-Module AU
+        Install-Module GetRedirectedURL
+
+    - name: Run update.ps1
+      shell: pwsh
+      run: |
+        cd ./azure-kubelogin/
+        ./update.ps1
+
+    - name: Build Chocolatey Package
+      uses: crazy-max/ghaction-chocolatey@v3
+      with:
+        args: pack
+
+    - name: Push Chocolatey Package
+      uses: crazy-max/ghaction-chocolatey@v3
+      env:
+        CHOCO_API_KEY: ${{ secrets.ChocoApiKey }}
+      args: |
+        push azure-kubelogin.${{ github.event.client_payload.version }}.nupkg --source https://push.chocolatey.org/ --api-key "$env:CHOCO_API_KEY"
