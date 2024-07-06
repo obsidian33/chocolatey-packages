@@ -1,10 +1,9 @@
 name: Update, Build, and Push Chocolatey Packages on Repository Dispatch
 
-on: 
-  workflow_dispatch:
-    inputs:
-      package: 'Azure/kubelogin'
-      version: '0.1.4'
+on: workflow_dispatch
+    # inputs:
+    #   package: 'Azure/kubelogin'
+    #   version: '0.1.4'
   # repository_dispatch:
   #   types: [new-release]
 
