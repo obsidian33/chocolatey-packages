@@ -32,14 +32,14 @@ jobs:
     - name: Build Chocolatey Package
       id: build
       run: |
-        $output = choco pack
-        Write-Host "::set-output name=nupkg::$output[2]"
+        $output = (choco pack)[2]
+        Write-Host "nupkg=$output" >> $GITHUB_OUTPUT
     
     - name: Extract nupkg filename
       id: filename
       run: |
-        $matches ${{ steps.build.outputs.nupkg }} -match "([a-z0-9\-\.]+.nupkg)'$"
-        Write-Host "::set-output name=nupkg::$Matches[1]"
+        ${{ steps.build.outputs.nupkg }} -match "([a-z0-9\-\.]+.nupkg)'$"
+        Write-Host "nupkg=$Matches[1]" >> $GITHUB_OUTPUT
 
     - name: Push Chocolatey Package
       env:
