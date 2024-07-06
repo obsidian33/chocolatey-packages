@@ -6,21 +6,20 @@ on:
       package:
         description: Name of chocolatey package
         required: true 
-        default: Azure/kubelogin
+        default: azure-kubelogin
         type: choice
         options:
-          - Azure/kubelogin
+          - azure-kubelogin
   # repository_dispatch:
   #   types: [new-release]
 
 jobs:
   update-build-push:
-    # if: ${{ github.event.client_payload.package == 'Azure/kubelogin' || inputs.package == 'Azure/kubelogin' }}
     runs-on: windows-latest
     defaults:
       run:
         shell: pwsh
-        working-directory: ./azure-kubelogin
+        working-directory: ./${{ inputs.package }}
 
     steps:
     - name: Checkout repository
