@@ -21,7 +21,7 @@ jobs:
     defaults:
       run:
         shell: pwsh
-        working-directory: ./${{ inputs.package }}
+        working-directory: ./${{ env.PACKAGE }}
 
     steps:
     - name: Checkout repository
@@ -33,10 +33,10 @@ jobs:
         Install-Module AU
         Install-Module GetRedirectedURL
 
-    - name: Run update.ps1
+    - name: Run update.ps1 for ${{ env.PACKAGE }}
       run: ./update.ps1
 
-    - name: Build Chocolatey Package
+    - name: Build ${{ env.PACKAGE }}
       id: build
       run: |
         $output = (choco pack)[2]
@@ -49,7 +49,7 @@ jobs:
         $filename = $Matches[1]
         "nupkg=$filename" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
-    - name: Push Chocolatey Package
+    - name: Push ${{ env.PACKAGE }} to Chocolatey
       env:
         CHOCO_API_KEY: ${{ secrets.ChocoApiKey }}
       run: |
