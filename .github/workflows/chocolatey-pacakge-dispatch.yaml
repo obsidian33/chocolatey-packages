@@ -11,23 +11,23 @@ jobs:
   update-build-push:
     # if: ${{ github.event.client_payload.package == 'Azure/kubelogin' || inputs.package == 'Azure/kubelogin' }}
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: ./azure-kubelogin
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
 
     - name: Install PowerShell Modules
-      shell: pwsh
       run: |
         Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
         Install-Module AU
         Install-Module GetRedirectedURL
 
     - name: Run update.ps1
-      shell: pwsh
-      run: |
-        cd ./azure-kubelogin/
-        ./update.ps1
+      run: ./update.ps1
 
     - name: Build Chocolatey Package
       uses: crazy-max/ghaction-chocolatey@v3
