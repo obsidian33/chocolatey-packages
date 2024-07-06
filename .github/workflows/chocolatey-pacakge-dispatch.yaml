@@ -3,7 +3,13 @@ name: Update, Build, and Push Chocolatey Packages on Repository Dispatch
 on:
   workflow_dispatch:
     inputs:
-      package: Azure/kubelogin
+      package:
+        description: Name of chocolatey package
+        required: true 
+        default: Azure/kubelogin
+        type: choice
+        options:
+          - Azure/kubelogin
   # repository_dispatch:
   #   types: [new-release]
 
