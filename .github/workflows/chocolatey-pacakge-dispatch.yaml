@@ -36,6 +36,11 @@ jobs:
     - name: Run update.ps1 for ${{ env.PACKAGE }}
       run: ./update.ps1
 
+    - name: Commit & push changes
+      uses: actions-js/push@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Build ${{ env.PACKAGE }}
       id: build
       run: |
