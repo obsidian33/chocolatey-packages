@@ -4,18 +4,20 @@ on:
   workflow_dispatch:
     inputs:
       package:
-        description: Name of chocolatey package
+        description: Package
         required: true 
         default: azure-kubelogin
         type: choice
         options:
           - azure-kubelogin
-  # repository_dispatch:
-  #   types: [new-release]
+  repository_dispatch:
+    types: [new-release]
 
 jobs:
   update-build-push:
     runs-on: windows-latest
+    env:
+      PACKAGE: ${{ inputs.pacakge || github.event.client_payload.package }}
     defaults:
       run:
         shell: pwsh
