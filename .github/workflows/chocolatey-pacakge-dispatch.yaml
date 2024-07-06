@@ -38,7 +38,7 @@ jobs:
     - name: Extract nupkg filename
       id: filename
       run: |
-        ${{ steps.build.outputs.nupkg }} -match "([a-z0-9\-\.]+.nupkg)'$"
+        "${{ steps.build.outputs.nupkg }}" -match "([a-z0-9\-\.]+.nupkg)'$"
         "nupkg=$Matches[1]" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
     - name: Push Chocolatey Package
