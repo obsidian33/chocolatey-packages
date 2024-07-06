@@ -30,7 +30,7 @@ jobs:
       run: ./update.ps1
 
     - name: Build Chocolatey Package
-      shell: choco pack
+      run: choco pack
 
     # - name: Build Chocolatey Package
     #   uses: crazy-max/ghaction-chocolatey@v3
