@@ -29,8 +29,8 @@ jobs:
     - name: Run update.ps1
       run: ./update.ps1
 
-    - name: Display dir contents
-      run: gci
+    - name: Build Chocolatey Package
+      shell: choco pack
 
     # - name: Build Chocolatey Package
     #   uses: crazy-max/ghaction-chocolatey@v3
