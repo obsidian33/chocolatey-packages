@@ -3,10 +3,14 @@ name: Update, Build, and Push Chocolatey Packages on Repository Dispatch
 on:
   repository_dispatch:
     types: [new-release]
+  workflow_dispatch:
+    inputs:
+      package: 'Azure/kubelogin'
+      version: '0.1.4'
 
 jobs:
   update-build-push:
-    if: ${{ github.event.client_payload == 'Azure/kubelogin' }}
+    if: ${{ github.event.client_payload.package == 'Azure/kubelogin' || inputs.package == 'Azure/kubelogin' }}
     runs-on: windows-latest
 
     steps:
@@ -31,9 +35,9 @@ jobs:
       with:
         args: pack
 
-    - name: Push Chocolatey Package
-      uses: crazy-max/ghaction-chocolatey@v3
-      env:
-        CHOCO_API_KEY: ${{ secrets.ChocoApiKey }}
-      args: |
-        push azure-kubelogin.${{ github.event.client_payload.version }}.nupkg --source https://push.chocolatey.org/ --api-key "$env:CHOCO_API_KEY"
+    # - name: Push Chocolatey Package
+    #   uses: crazy-max/ghaction-chocolatey@v3
+    #   env:
+    #     CHOCO_API_KEY: ${{ secrets.ChocoApiKey }}
+    #   args: |
+    #     push azure-kubelogin.${{ github.event.client_payload.version }}.nupkg --source https://push.chocolatey.org/ --api-key "$env:CHOCO_API_KEY"
