@@ -10,7 +10,7 @@ on:
 
 jobs:
   update-build-push:
-    if: ${{ github.event.client_payload.package == 'Azure/kubelogin' || inputs.package == 'Azure/kubelogin' }}
+    # if: ${{ github.event.client_payload.package == 'Azure/kubelogin' || inputs.package == 'Azure/kubelogin' }}
     runs-on: windows-latest
 
     steps:
