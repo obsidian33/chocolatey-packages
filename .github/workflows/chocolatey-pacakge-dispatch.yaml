@@ -15,6 +15,7 @@ jobs:
       run:
         shell: pwsh
         working-directory: ./azure-kubelogin
+    outputs
 
     steps:
     - name: Checkout repository
@@ -30,16 +31,19 @@ jobs:
       run: ./update.ps1
 
     - name: Build Chocolatey Package
-      run: choco pack
+      id: build
+      run: |
+        $output = choco pack
+        Write-Host "::set-output name=nupkg::$output[2]"
+    
+    - name: Extract nupkg filename
+      id: filename
+      run: |
+        $matches ${{ steps.build.outputs.nupkg }} -match "([a-z0-9\-\.]+.nupkg)'$"
+        Write-Host "::set-output name=nupkg::$Matches[1]"
 
-    # - name: Build Chocolatey Package
-    #   uses: crazy-max/ghaction-chocolatey@v3
-    #   with:
-    #     args: pack
-
-    # - name: Push Chocolatey Package
-    #   uses: crazy-max/ghaction-chocolatey@v3
-    #   env:
-    #     CHOCO_API_KEY: ${{ secrets.ChocoApiKey }}
-    #   args: |
-    #     push azure-kubelogin.${{ github.event.client_payload.version }}.nupkg --source https://push.chocolatey.org/ --api-key "$env:CHOCO_API_KEY"
+    - name: Push Chocolatey Package
+      env:
+        CHOCO_API_KEY: ${{ secrets.ChocoApiKey }}
+      run: |
+        choco push ${{ steps.filename.outputs.nupkg }} --source https://push.chocolatey.org/ --api-key "$env:CHOCO_API_KEY"
