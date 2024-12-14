@@ -2,8 +2,8 @@
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
 # DO NOT CHANGE THESE MANUALLY. Use update.ps1
-$url64      = 'https://github.com/Azure/kubelogin/releases/download/v0.1.5/kubelogin-win-amd64.zip'
-$checksum64 = '570cc6c0347bee7998d2a8956b5938ba04c396f4f2323c30161e715b4092f431'
+$url64      = 'https://github.com/Azure/kubelogin/releases/download/v0.1.6/kubelogin-win-amd64.zip'
+$checksum64 = '29e2cbfeebe134e280b72876a66ff7ff63fd5335ed74ad925162762544326b48'
 
 $packageArgs = @{
   PackageName    = $env:ChocolateyPackageName
