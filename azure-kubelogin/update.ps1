@@ -8,7 +8,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-$releases = "https://github.com/Azure/kubelogin/releases/latest"
+$releases = "https://github.com/Azure/kubelogin/releases/tag/v0.1.9"
 
 function global:au_SearchReplace {
     @{
